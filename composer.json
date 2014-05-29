@@ -1,0 +1,29 @@
+{
+    "name": "rendyep/winata",
+    "type": "plugin",
+    "description": "Content Management System?",
+    "keywords": [
+        "CMS",
+        "Content Management System"
+    ],
+    "homepage": "https://github.com/rendyep/winata",
+    "authors": [
+        {
+            "name": "Rendy Eko Prastiyo",
+            "email": "rendyekoprastiyo@gmail.com",
+            "homepage": "https://github.com/rendyep",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "rendyekoprastiyo@gmail.com",
+        "source": "https://github.com/rendyep/winata"
+    },
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Winata\\": "src/Winata"
+        }
+    }
+}
