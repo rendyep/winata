@@ -11,6 +11,10 @@ class View implements ServiceInterface
 
     protected $layout = 'default.phtml';
 
+    protected $title = 'Winata';
+
+    protected $titleSeparator = '-';
+
     protected $content;
 
     protected $properties;
@@ -66,6 +70,37 @@ class View implements ServiceInterface
         return $this->properties;
     }
 
+    public function setTitleSeparator($titleSeparator)
+    {
+        $this->titleSeparator = $titleSeparator;
+
+        return $this;
+    }
+
+    public function getTitleSeparator()
+    {
+        return $this->titleSeparator;
+    }
+
+    public function prependTitle($title)
+    {
+        $this->title = $title . ' ' . $this->titleSeparator . ' ' . $this->title;
+
+        return $this;
+    }
+
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
     public function setLayout($layout)
     {
         if (file_exists($config['view_manager']['layout_path'] . '/' . $layout)) {
@@ -75,6 +110,8 @@ class View implements ServiceInterface
         } else {
             throw new \Exception("Layout dengan nama \"{$layout}\" tidak ditemukan!");
         }
+
+        return $this;
     }
 
     public function getLayout()
