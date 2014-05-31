@@ -44,20 +44,11 @@ class View implements ServiceInterface
         $route  = $this->serviceManager->getService('router');
 
         ob_start();
-        require $config['view_manager']['module_path']
-            . '/' . $route->getModule()
-            . '/' . $route->getController()
-            . '/' . $route->getAction()
-            . '.phtml';
-        $this->content = ob_get_contents();
-        ob_end_clean();
-
-        ob_start();
         require $config['view_manager']['layout_path'] . '/default.phtml';
-        $template = ob_get_contents();
+        $layout = ob_get_contents();
         ob_end_clean();
 
-        return $template;
+        return $layout;
     }
 
     public function setProperties(array $properties = null)
@@ -99,6 +90,23 @@ class View implements ServiceInterface
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function getContent()
+    {
+        $config = $this->serviceManager->getConfig();
+        $route  = $this->serviceManager->getService('router');
+
+        ob_start();
+        require $config['view_manager']['module_path']
+            . '/' . $route->getModule()
+            . '/' . $route->getController()
+            . '/' . $route->getAction()
+            . '.phtml';
+        $content = ob_get_contents();
+        ob_end_clean();
+
+        return $content;
     }
 
     public function setLayout($layout)
