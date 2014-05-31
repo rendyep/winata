@@ -16,7 +16,7 @@ class SessionContainer implements ServiceInterface
         $this->serviceManager = $serviceManager;
 
         $config = $this->serviceManager->getConfig();
-        if (!isset($_SESSION[$config['options']['session_identity'])) {
+        if (! isset($_SESSION[$config['options']['session_identity']])) {
             $_SESSION[$config['options']['session_identity']] = new SessionStorage();
         }
 
