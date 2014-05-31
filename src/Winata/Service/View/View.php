@@ -9,7 +9,7 @@ class View implements ServiceInterface
 {
     protected $serviceManager;
 
-    protected $template;
+    protected $layout = 'default.phtml';
 
     protected $content;
 
@@ -49,7 +49,7 @@ class View implements ServiceInterface
         ob_end_clean();
 
         ob_start();
-        require $config['view_manager']['template_path'] . '/default.phtml';
+        require $config['view_manager']['layout_path'] . '/default.phtml';
         $template = ob_get_contents();
         ob_end_clean();
 
@@ -64,5 +64,21 @@ class View implements ServiceInterface
     public function getProperties()
     {
         return $this->properties;
+    }
+
+    public function setLayout($layout)
+    {
+        if (file_exists($config['view_manager']['layout_path'] . '/' . $layout)) {
+            $this->layout = $layout;
+        } elseif (file_exists($config['view_manager']['layout_path'] . '/' . $layout . 'phtml')) {
+            $this->layout = $layout . '.phtml';
+        } else {
+            throw new \Exception("Layout dengan nama \"{$layout}\" tidak ditemukan!");
+        }
+    }
+
+    public function getLayout()
+    {
+        return $this->layout;
     }
 }
