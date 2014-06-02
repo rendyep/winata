@@ -25,6 +25,15 @@ class AbstractActionController implements ServiceManagerAwareInterface
         }
     }
 
+    public function __call($action, $arguments = null)
+    {
+        if (! method_exists($this, $action)) {
+            return false;
+        }
+
+        return $this->$action();
+    }
+
     public function setServiceManager(ServiceManagerInterface $serviceManager)
     {
         $this->serviceManager = $serviceManager;

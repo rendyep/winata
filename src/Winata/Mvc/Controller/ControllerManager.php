@@ -37,11 +37,10 @@ class ControllerManager implements ServiceManagerAwareInterface
         $config = $this->serviceManager->getConfig();
         $router = $this->serviceManager->getService('router');
 
-        $classPath = $config['module_manager']['modules'][$router->getModule()]['controllers'][$router->getController()];
-        $action = new $config['module_manager']['invokables'][$classPath]($this->serviceManager);
+        $controller = $router->getControllerHandler();
 
         ob_start();
-        $view = $action->{$router->getAction(true)}();
+        $view = $controller->{$router->getAction(true)}();
         ob_end_clean();
 
         return $view;

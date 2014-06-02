@@ -19,6 +19,8 @@ class Router implements ServiceInterface
 
     protected $route;
 
+    protected $controllerHandler;
+
     public function __construct(ServiceManagerInterface $serviceManager)
     {
         $this->serviceManager = $serviceManager;
@@ -67,17 +69,20 @@ class Router implements ServiceInterface
                 throw new \Exception("Controller \"{$arrayOfUri[1]}\" not found!");
             }
 
+            $controllerPath = $config['module_manager']['modules'][$arrayOfUri[0]]['controllers'][$arrayOfUri[1]];
+            $controllerHandler = new $config['module_manager']['invokables'][$controllerPath]($this->serviceManager);
+            $this->controllerHandler = $controllerHandler;
+
             if (isset($arrayOfUri[2]) && ! empty($arrayOfUri[2])) {
-                $action = $modules[$arrayOfUri[0]]['controllers'][$arrayOfUri[1]];
-                if (isset($controllers[$arrayOfUri[2]])) {
+                if (method_exists($controllerHandler, $this->strToCamelCase($arrayOfUri[2]) . 'Action')) {
                     $route['action'] = $arrayOfUri[2];
                 } else {
-                    throw new \Exception("Action \"{$arrayOfUri[1]}\" not found!");
+                    throw new \Exception("Action \"{$arrayOfUri[2]}\" not found!");
                 }
             } elseif (empty($arrayOfUri[2])) {
                 $route['action'] = $modules[$arrayOfUri[0]]['default']['action'];
             } else {
-                throw new \Exception("Action \"{$arrayOfUri[1]}\" not found!");
+                throw new \Exception("Action \"{$arrayOfUri[2]}\" not found!");
             }
         }
 
@@ -91,12 +96,23 @@ class Router implements ServiceInterface
         return $this->route;
     }
 
+    protected function strToCamelCase($str, $lowerFirst = false)
+    {
+        $str = str_replace('_', ' ', $str);
+
+        if ($lowerFirst) {
+            return str_replace(' ', '', lcfirst(ucwords($str)));
+        }
+
+        return str_replace(' ', '', ucwords($str));
+    }
+
     public function getModule($camelCase = false)
     {
         $module = $this->route['module'];
 
         if ($camelCase) {
-            return ucfirst($module);
+            return $this->strToCamelCase($module);
         }
 
         return $module;
@@ -107,7 +123,7 @@ class Router implements ServiceInterface
         $controller = $this->route['controller'];
 
         if ($camelCase) {
-            return ucfirst($controller);
+            return $this->strToCamelCase($controller);
         }
 
         return $controller;
@@ -118,14 +134,19 @@ class Router implements ServiceInterface
         $action = $this->route['action'];
 
         if ($toAction) {
-            return $action . 'Action';
+            return $this->strToCamelCase($action, true) . 'Action';
         }
 
-        return $action;
+        return str_replace('_', '-', $action);
     }
 
     public function getRequests()
     {
         return $this->route['requests'];
+    }
+
+    public function getControllerHandler()
+    {
+        return $this->controllerHandler;
     }
 }
