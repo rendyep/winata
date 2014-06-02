@@ -4,6 +4,29 @@
         Winata Library (rendyep/winata)
     </description>
 
+    <property name="php" value="php" />
+
+    <condition property="apigen" value="apigen.php.bat">
+        <os family="windows" />
+    </condition>
+    <condition property="apigen" value="apigen.php">
+        <os family="unix" />
+    </condition>
+
+    <condition property="phpcb" value="phpcb.bat">
+        <os family="windows" />
+    </condition>
+    <condition property="phpcb" value="phpcb">
+        <os family="unix" />
+    </condition>
+
+    <condition property="phpcs" value="phpcs.bat">
+        <os family="windows" />
+    </condition>
+    <condition property="phpcs" value="phpcs">
+        <os family="unix" />
+    </condition>
+
     <target name="build" depends="prepare, lint, phpcs, phpcb, phpdoc" />
 
     <target name="clean" description="Cleanup build artifacts">
@@ -20,7 +43,7 @@
     </target>
 
     <target name="lint">
-        <apply executable="php.exe" failonerror="true">
+        <apply executable="${php}" failonerror="true">
             <arg value="-l" />
             <fileset dir="${basedir}/src">
                 <include name="**/*.php" />
@@ -32,7 +55,7 @@
     </target>
 
     <target name="phpdoc" description="API documentation generator for PHP 5.3+">
-        <exec executable="${basedir}/vendor/bin/apigen.php.bat" dir="${basedir}">
+        <exec executable="${basedir}/vendor/bin/${apigen}" dir="${basedir}">
             <arg value="--source" />
             <arg path="${basedir}/src" />
             <arg value="--destination" />
@@ -41,7 +64,7 @@
     </target>
 
     <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
-        <exec executable="${basedir}/vendor/bin/phpcb.bat">
+        <exec executable="${basedir}/vendor/bin/${phpcb}">
             <arg value="--log" />
             <arg path="${basedir}/build/logs" />
             <arg value="--source" />
@@ -51,15 +74,14 @@
         </exec>
     </target>
 
-    <target name="phpcs"
-         description="Find coding standard violations using PHP_CodeSniffer">
-  <exec executable="${basedir}/vendor/bin/phpcs.bat">
-   <arg value="--report=checkstyle" />
-   <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
-   <arg value="--standard=PSR2" />
-   <arg value="--extensions=php" />
-   <arg path="${basedir}/src" />
-  </exec>
- </target>
+    <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer">
+        <exec executable="${basedir}/vendor/bin/${phpcs}">
+            <arg value="--report=checkstyle" />
+            <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+            <arg value="--standard=PSR2" />
+            <arg value="--extensions=php" />
+            <arg path="${basedir}/src" />
+        </exec>
+    </target>
 
 </project>
