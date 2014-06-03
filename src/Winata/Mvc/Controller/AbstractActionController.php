@@ -10,9 +10,8 @@
 
 namespace Winata\Mvc\Controller;
 
-use Winata\ServiceManager\ServiceManagerInterface;
-use Winata\ServiceManager\ServiceManagerAwareInterface;
-use Winata\Service\ServiceInterface;
+use Winata\Service\ServiceManagerInterface;
+use Winata\Service\ServiceManagerAwareInterface;
 
 class AbstractActionController implements ServiceManagerAwareInterface
 {

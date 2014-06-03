@@ -10,7 +10,7 @@
 
 namespace Winata\Mvc;
 
-use Winata\ServiceManager\ServiceManagerInterface;
+use Winata\Service\ServiceManagerInterface;
 use Winata\Mvc\Controller\ControllerManager;
 
 class Application
