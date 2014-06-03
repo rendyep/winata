@@ -11,11 +11,11 @@
 return array(
     'service' => array(
         'factories' => array(
-            'router' =>  '\\Winata\\Service\\Router\\RouterFactory',
-            'request' => '\\Winata\\Service\\Request\\RequestFactory',
-            'response' => '\\Winata\\Service\\Response\\ResponseFactory',
-            'session' => '\\Winata\\Service\\Session\\SessionFactory',
-            'view' => '\\Winata\\Service\\View\\ViewFactory'
+            'router' =>  '\\Winata\\Mvc\\Router\\Service\\Factory',
+            'request' => '\\Winata\\Mvc\\Http\\Request\\Service\\Factory',
+            'response' => '\\Winata\\Mvc\\Http\\Response\\Service\\Factory',
+            'session' => '\\Winata\\Session\\Service\\Factory',
+            'view' => '\\Winata\\Mvc\\View\\Service\\Factory'
         ),
         'invokables' => array(
         ),
