@@ -12,7 +12,7 @@ namespace Winata\Mvc\View\Service;
 
 use Winata\Service\ServiceManagerInterface;
 use Winata\Service\ServiceFactoryInterface;
-use Winata\View\View;
+use Winata\Mvc\View\View;
 
 class Factory implements ServiceFactoryInterface
 {
