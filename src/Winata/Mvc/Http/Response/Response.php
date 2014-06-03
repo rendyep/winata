@@ -8,13 +8,12 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\Response;
+namespace Winata\Mvc\Http\Response;
 
-use Winata\ServiceManager\ServiceManagerInterface;
-use Winata\Service\ServiceInterface;
-use Winata\Service\View\View;
+use Winata\Service\ServiceManagerInterface;
+use Winata\View\View;
 
-class Response implements ServiceInterface
+class Response
 {
     protected $serviceManager;
 

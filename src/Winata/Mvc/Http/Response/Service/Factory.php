@@ -8,16 +8,17 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\Request;
+namespace Winata\Mvc\Http\Response\Service;
 
-use Winata\ServiceManager\ServiceManagerInterface;
+use Winata\Service\ServiceManagerInterface;
 use Winata\Service\ServiceFactoryInterface;
+use Winata\Mvc\Http\Response\Response;
 
-class RequestFactory implements ServiceFactoryInterface
+class Factory implements ServiceFactoryInterface
 {
     public static function createService(ServiceManagerInterface $serviceManager)
     {
-        $service = new Request($serviceManager);
+        $service = new Response($serviceManager);
 
         return $service;
     }

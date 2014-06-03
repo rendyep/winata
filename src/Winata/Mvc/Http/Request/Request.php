@@ -8,12 +8,12 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\Request;
+namespace Winata\Mvc\Http\Request;
 
-use Winata\ServiceManager\ServiceManagerInterface;
-use Winata\Service\ServiceInterface;
+use Winata\Service\ServiceManagerInterface;
+use Winata\Mvc\Router\Router;
 
-class Request implements ServiceInterface, \ArrayAccess
+class Request implements \ArrayAccess
 {
     protected $serviceManager;
 
@@ -25,12 +25,12 @@ class Request implements ServiceInterface, \ArrayAccess
     {
         $this->serviceManager = $serviceManager;
 
-        $this->parseRequest();
+        $this->parseRequest($this->serviceManager->getService('router'));
     }
 
-    protected function parseRequest()
+    protected function parseRequest(Router $router)
     {
-        $this->params = $this->serviceManager->getService('router')->getRequests();
+        $this->params = $router->getRequests();
         $this->posts  = $_POST;
     }
 
