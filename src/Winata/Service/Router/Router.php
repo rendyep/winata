@@ -107,7 +107,7 @@ class Router implements ServiceInterface
 
     protected function strToCamelCase($str, $lowerFirst = false)
     {
-        $str = str_replace('_', ' ', $str);
+        $str = str_replace('-', ' ', $str);
 
         if ($lowerFirst) {
             return str_replace(' ', '', lcfirst(ucwords($str)));
@@ -146,7 +146,7 @@ class Router implements ServiceInterface
             return $this->strToCamelCase($action, true) . 'Action';
         }
 
-        return str_replace('_', '-', $action);
+        return $action;
     }
 
     public function getRequests()
