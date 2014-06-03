@@ -8,9 +8,7 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\ServiceManager;
-
-use Winata\Service\ServiceInterface;
+namespace Winata\Service;
 
 class ServiceManager implements ServiceManagerInterface
 {

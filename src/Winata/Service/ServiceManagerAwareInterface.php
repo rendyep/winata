@@ -8,7 +8,7 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\ServiceManager;
+namespace Winata\Service;
 
 interface ServiceManagerAwareInterface
 {
