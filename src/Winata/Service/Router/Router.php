@@ -58,6 +58,7 @@ class Router implements ServiceInterface
         } else {
             $moduleManager = $config['module_manager'];
             $modules       = $moduleManager['modules'];
+            $invokables    = $moduleManager['invokables'];
 
             if (isset($arrayOfUri[0]) && ! empty($arrayOfUri[0]) && isset($modules[$arrayOfUri[0]])) {
                 $route['module'] = $arrayOfUri[0];
@@ -68,30 +69,42 @@ class Router implements ServiceInterface
             if (isset($arrayOfUri[1]) && ! empty($arrayOfUri[1])) {
                 $controllers = $modules[$arrayOfUri[0]]['controllers'];
                 if (isset($controllers[$arrayOfUri[1]])) {
-                    $route['controller'] = $arrayOfUri[1];
+                    if (isset($invokables[$controllers[$arrayOfUri[1]]])) {
+                        $route['controller'] = $arrayOfUri[1];
+                    } else {
+                        throw new \Exception("Controller \"{$arrayOfUri[1]}\" not found!");
+                    }
                 } else {
                     throw new \Exception("Controller \"{$arrayOfUri[1]}\" not found!");
                 }
-            } elseif (empty($arrayOfUri[1])) {
+            } elseif (! isset($arrayOfUri[1])|| (isset($arrayOfUri[1]) && empty($arrayOfUri[1]))) {
                 $route['controller'] = $modules[$arrayOfUri[0]]['default']['controller'];
             } else {
                 throw new \Exception("Controller \"{$arrayOfUri[1]}\" not found!");
             }
 
-            $controllerPath = $config['module_manager']['modules'][$arrayOfUri[0]]['controllers'][$arrayOfUri[1]];
-            $controllerHandler = new $config['module_manager']['invokables'][$controllerPath]($this->serviceManager);
+            $controllerPath = $modules[$arrayOfUri[0]]['controllers'][$route['controller']];
+            $controllerHandler = new $invokables[$controllerPath]($this->serviceManager);
             $this->controllerHandler = $controllerHandler;
 
             if (isset($arrayOfUri[2]) && ! empty($arrayOfUri[2])) {
-                if (method_exists($controllerHandler, $this->strToCamelCase($arrayOfUri[2]) . 'Action')) {
+                if (method_exists($controllerHandler, $this->strToCamelCase($arrayOfUri[2] . 'Action', true))) {
                     $route['action'] = $arrayOfUri[2];
                 } else {
                     throw new \Exception("Action \"{$arrayOfUri[2]}\" not found!");
                 }
-            } elseif (empty($arrayOfUri[2])) {
-                $route['action'] = $modules[$arrayOfUri[0]]['default']['action'];
+            } elseif (! isset($arrayOfUri[2]) || (isset($arrayOfUri[2]) && empty($arrayOfUri[2]))) {
+                if (isset($modules[$arrayOfUri[0]]['default']['action'])) {
+                    $route['action'] = $modules[$arrayOfUri[0]]['default']['action'];
+                } else {
+                    throw new \Exception("Action \"index\" not found!");
+                }
             } else {
-                throw new \Exception("Action \"{$arrayOfUri[2]}\" not found!");
+                if (isset($modules[$arrayOfUri[0]]['default']['action'])) {
+                    $route['action'] = $modules[$arrayOfUri[0]]['default']['action'];
+                } else {
+                    throw new \Exception("Action \"index\" not found!");
+                }
             }
         }
 
