@@ -8,12 +8,11 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\Router;
+namespace Winata\Mvc\Router;
 
-use Winata\ServiceManager\ServiceManagerInterface;
-use Winata\Service\ServiceInterface;
+use Winata\Service\ServiceManagerInterface;
 
-class Router implements ServiceInterface
+class Router
 {
     protected $serviceManager;
 

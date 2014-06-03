@@ -8,12 +8,13 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\Router;
+namespace Winata\Mvc\Router\Service;
 
-use Winata\ServiceManager\ServiceManagerInterface;
+use Winata\Service\ServiceManagerInterface;
 use Winata\Service\ServiceFactoryInterface;
+use Winata\Mvc\Router\Router;
 
-class RouterFactory implements ServiceFactoryInterface
+class Factory implements ServiceFactoryInterface
 {
     public static function createService(ServiceManagerInterface $serviceManager)
     {
