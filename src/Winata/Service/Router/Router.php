@@ -46,6 +46,15 @@ class Router implements ServiceInterface
 
         if (empty($arrayOfUri) || in_array($uri, $this->getDefaultRoute())) {
             $route = $config['module_manager']['default'];
+
+            $controllerPath = $config
+                ['module_manager']
+                ['modules']
+                [$route['module']]
+                ['controllers']
+                [$route['controller']];
+            $controllerHandler = new $config['module_manager']['invokables'][$controllerPath]($this->serviceManager);
+            $this->controllerHandler = $controllerHandler;
         } else {
             $moduleManager = $config['module_manager'];
             $modules       = $moduleManager['modules'];
