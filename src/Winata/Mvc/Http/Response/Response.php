@@ -11,7 +11,7 @@
 namespace Winata\Mvc\Http\Response;
 
 use Winata\Service\ServiceManagerInterface;
-use Winata\View\View;
+use Winata\Mvc\View\View;
 
 class Response
 {
