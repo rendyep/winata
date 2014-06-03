@@ -8,12 +8,13 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\View;
+namespace Winata\Mvc\View\Service;
 
-use Winata\ServiceManager\ServiceManagerInterface;
+use Winata\Service\ServiceManagerInterface;
 use Winata\Service\ServiceFactoryInterface;
+use Winata\View\View;
 
-class ViewFactory implements ServiceFactoryInterface
+class Factory implements ServiceFactoryInterface
 {
     public static function createService(ServiceManagerInterface $serviceManager)
     {

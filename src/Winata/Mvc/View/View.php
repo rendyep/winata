@@ -8,12 +8,11 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\View;
+namespace Winata\Mvc\View;
 
-use Winata\ServiceManager\ServiceManagerInterface;
-use Winata\Service\ServiceInterface;
+use Winata\Service\ServiceManagerInterface;
 
-class View implements ServiceInterface
+class View
 {
     protected $serviceManager;
 
