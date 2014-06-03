@@ -8,7 +8,7 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\Session;
+namespace Winata\Session;
 
 class SessionStorage
 {

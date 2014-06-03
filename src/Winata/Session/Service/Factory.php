@@ -8,12 +8,13 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\Session;
+namespace Winata\Session;
 
-use Winata\ServiceManager\ServiceManagerInterface;
+use Winata\Service\ServiceManagerInterface;
 use Winata\Service\ServiceFactoryInterface;
+use Winata\Session;
 
-class SessionContainerFactory implements ServiceProviderFactoryInterface
+class Factory implements ServiceProviderFactoryInterface
 {
     public static function createService(ServiceManagerInterface $serviceManager)
     {

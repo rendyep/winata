@@ -8,12 +8,11 @@
 * @license https://github.com/rendyep/winata/blob/master/LICENCE
 */
 
-namespace Winata\Service\Session;
+namespace Winata\Session;
 
 use Winata\ServiceManager\ServiceManagerInterface;
-use Winata\Service\ServiceInterface;
 
-class SessionContainer implements ServiceInterface
+class SessionContainer
 {
     protected $serviceManager;
 
