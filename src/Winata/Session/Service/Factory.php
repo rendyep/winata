@@ -12,14 +12,14 @@ namespace Winata\Session;
 
 use Winata\Service\ServiceManagerInterface;
 use Winata\Service\ServiceFactoryInterface;
-use Winata\Session;
+use Winata\Session\SessionManager;
 
 class Factory implements ServiceProviderFactoryInterface
 {
     public static function createService(ServiceManagerInterface $serviceManager)
     {
-        $service = new SessionContainer($serviceManager);
+        $service = new SessionManager($serviceManager);
 
-        return $service->getSessionStorage();
+        return $service;
     }
 }

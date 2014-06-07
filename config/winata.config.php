@@ -14,13 +14,14 @@ return array(
             'router' =>  '\\Winata\\Mvc\\Router\\Service\\Factory',
             'request' => '\\Winata\\Mvc\\Http\\Request\\Service\\Factory',
             'response' => '\\Winata\\Mvc\\Http\\Response\\Service\\Factory',
-            'session' => '\\Winata\\Session\\Service\\Factory',
-            'view' => '\\Winata\\Mvc\\View\\Service\\Factory'
+            'sessionManager' => '\\Winata\\Session\\Service\\Factory',
+            'view' => '\\Winata\\Mvc\\View\\Service\\Factory',
+            'navigation' => '\\Winata\Navigation\Navigation\Factory'
         ),
         'invokables' => array(
         ),
     ),
     'options' => array(
-        'session_identity' => 'WINATA_SESSION_IDENTITY'
+        'default_session_namespace' => '\Winata\Session'
     )
 );
